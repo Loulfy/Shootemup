@@ -1,3 +1,3 @@
 # Shootemup
 
-![alt tag](https://raw.github.com/Loulfy/Shootemup/DC.png)
+![alt tag](https://github.com/Loulfy/Shootemup/blob/master/DC.png)
