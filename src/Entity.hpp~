@@ -1,0 +1,22 @@
+#ifndef ENTITY_H
+#define ENTITY_H
+
+#include <vector>
+#include <iostream>
+
+#include "Bullet.hpp"
+
+class Entity
+{
+	public:
+
+		Entity();
+		Bullet* fire();
+
+	private:
+
+		int m_x;
+		int m_y;
+};
+
+#endif

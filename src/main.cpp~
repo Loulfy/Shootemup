@@ -1,0 +1,26 @@
+#include <iostream>
+#include <cstdlib>
+
+#include "Model.hpp"
+#include "View.hpp"
+
+using namespace std;
+
+int main()
+{
+	Model* m = new Model();
+	View* v = new SFMLView();
+
+	v->setModel(m);
+
+	while(v->run())
+	{
+		m->update();
+		v->draw();
+	}
+
+	delete v;
+	delete m;
+	
+	return EXIT_SUCCESS;
+}
