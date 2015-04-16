@@ -20,7 +20,6 @@ void AssetManager::add(string file)
 {
 	if(!m_assets.count(file))
 	{
-		std::cout << "add" << std::endl;
 		m_assets[file] = new Image();
 		m_assets[file]->LoadFromFile(file);
 	}
@@ -30,11 +29,10 @@ Image* AssetManager::get(string file)
 {
 	if(m_assets.count(file))
 	{
-		std::cout << "get" << std::endl;
 		return m_assets[file];
 	}
 	else
 	{
-		return NULL;
+		return nullptr;
 	}
 }

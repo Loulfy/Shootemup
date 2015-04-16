@@ -1,24 +1,24 @@
 #include "Bullet.hpp"
 
 
-Bullet::Bullet() : m_x(0), m_y(0)
+Bullet::Bullet() : m_x(0), m_y(0), m_speed(400.f)
 {
-	std::cout << "boum" << std::endl;
+
 }
 
-Bullet::Bullet(int x, int y) : m_x(x), m_y(y)
+Bullet::Bullet(int x, int y) : m_x(x), m_y(y), m_speed(800.f)
 {
-	std::cout << "boum" << std::endl;
+
 }
 
 Bullet::~Bullet()
 {
-	std::cout << "destruction bullet" << std::endl;
+	//std::cout << "destruction bullet" << std::endl;
 }
 
-void Bullet::update()
+void Bullet::update(float dt)
 {
-	m_y -= 1;
+	m_y -= m_speed * dt;
 }
 
 int Bullet::getX() const

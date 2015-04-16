@@ -13,12 +13,14 @@ class Bullet
 		~Bullet();
 		int getX() const;
 		int getY() const;
-		void update();
+		void update(float dt);
 
 	private:
 
-		int m_x;
-		int m_y;
+		float m_x;
+		float m_y;
+		
+		float m_speed;
 
 };
 

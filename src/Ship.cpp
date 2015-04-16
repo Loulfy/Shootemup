@@ -15,8 +15,24 @@ Ship::~Ship()
 
 }
 
-void Ship::move(int x, int y)
+void Ship::move(int dir, float dt)
 {
-	m_x += x;
-	m_y += y;
+    switch(dir)
+    {
+        case 0:
+            m_y -= m_speed * dt;
+            break;
+        case 1:
+            m_y += m_speed * dt;
+            break;
+        case 2:
+            m_x += m_speed * dt;
+            break;
+        case 3:
+            m_x -= m_speed * dt;
+            break;
+            
+        default:
+            break;
+    }
 }

@@ -5,26 +5,23 @@
 #include "Model.hpp"
 #include "View.hpp"
 #include "SFMLView.hpp"
+#include "CSLView.hpp"
 
 using namespace std;
 
 int main()
 {
 	Model* m = new Model();
+	//View* v = new CSLView();
 	View* v = new SFMLView();
 
 	v->setModel(m);
 
 	while(v->run())
 	{
-		m->update();
-
-		//synchronizes
 		v->update();
 
 		v->draw();
-
-		sf::Sleep(0.001);
 	}
 
 	delete v;

@@ -13,15 +13,20 @@ class Entity
 		Entity();
 		Entity(int x, int y);
 		virtual ~Entity();
+		void update(float dt);
 		int getX() const;
 		int getY() const;
-		virtual void move(int x, int y);
-		Bullet* fire();
+		virtual void move(int dir, float dt);
+		Bullet* fire(float dt);
 
 	protected:
 
-		int m_x;
-		int m_y;
+		float m_x;
+		float m_y;
+
+        float m_speed;
+		float m_firerate;
+		float m_time;
 };
 
 #endif

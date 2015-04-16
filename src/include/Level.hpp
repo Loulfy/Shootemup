@@ -2,6 +2,7 @@
 #define LEVEL_H
 
 #include <vector>
+#include <algorithm>
 
 #include "Entity.hpp"
 #include "Bullet.hpp"
@@ -13,8 +14,10 @@ class Level
 
 		Level();
 		~Level();
+		void update(float dt);
 		void add(Entity* e);
 		void add(Bullet* b);
+		void remove(Bullet* b);
 		void add(Ship* player);
 		int countEntity() const;
 		int countBullet() const;

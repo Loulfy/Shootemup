@@ -1,5 +1,7 @@
 #include "Level.hpp"
 
+using namespace std;
+
 Level::Level()
 {
 
@@ -8,7 +10,7 @@ Level::Level()
 Level::~Level()
 {
 	for(auto e : m_entities)
-	{
+    {
 		delete e;
 	}
 
@@ -16,6 +18,15 @@ Level::~Level()
 	{
 		delete b;
 	}
+}
+
+void Level::update(float dt)
+{
+    //UPDATE BULLETS
+    for(auto b : m_bullets)
+    {
+        b->update(dt);
+    }
 }
 
 void Level::add(Entity* e)
@@ -26,6 +37,12 @@ void Level::add(Entity* e)
 void Level::add(Bullet* b)
 {
 	m_bullets.push_back(b);
+}
+
+void Level::remove(Bullet* b)
+{
+    auto it = find(m_bullets.begin(), m_bullets.end(), b);
+    m_bullets.erase(it);
 }
 
 void Level::add(Ship* player)

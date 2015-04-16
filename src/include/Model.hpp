@@ -12,13 +12,13 @@ class Model
 		Model();
 		~Model();
 		void run();
-		void update();
+		void update(float dt);
 		Level* getLevel() const;
-		void playerUp(bool ok);
-		void playerDown(bool ok);
-		void playerRight(bool ok);
-		void playerLeft(bool ok);
-		void playerFire(bool ok);
+		void playerUp(bool ok, float dt);
+		void playerDown(bool ok, float dt);
+		void playerRight(bool ok, float dt);
+		void playerLeft(bool ok, float dt);
+		Bullet* playerFire(float dt);
 
 	private:
 

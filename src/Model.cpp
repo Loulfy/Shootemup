@@ -7,8 +7,6 @@ Model::Model()
 	m_level->add(new Ship(500, 500));
 	m_level->add(new Entity(100, 100));
 	m_level->add(new Entity(100, 200));
-
-	//m_level->add(player->fire());
 }
 
 Model::~Model()
@@ -24,13 +22,10 @@ void Model::run()
 	
 }
 
-void Model::update()
+void Model::update(float dt)
 {
-	//UPDATE BULLETS
-	for(int i = 0; i < m_level->countBullet(); ++i)
-	{
-		m_level->getBullet(i)->update();
-	}
+	//UPDATE LEVEL
+	m_level->update(dt);
 }
 
 Level* Model::getLevel() const
@@ -38,42 +33,46 @@ Level* Model::getLevel() const
 	return m_level;
 }
 
-void Model::playerUp(bool ok)
+void Model::playerUp(bool ok, float dt)
 {
 	if(ok)
 	{
-		m_level->getPlayer()->move(0,-1);
+		m_level->getPlayer()->move(0, dt);
 	}
 }
 
-void Model::playerDown(bool ok)
+void Model::playerDown(bool ok, float dt)
 {
 	if(ok)
 	{
-		m_level->getPlayer()->move(0, 1);
+		m_level->getPlayer()->move(1, dt);
 	}
 }
 
-void Model::playerRight(bool ok)
+void Model::playerRight(bool ok, float dt)
 {
 	if(ok)
 	{
-		m_level->getPlayer()->move(1, 0);
+		m_level->getPlayer()->move(2, dt);
 	}
 }
 
-void Model::playerLeft(bool ok)
+void Model::playerLeft(bool ok, float dt)
 {
 	if(ok)
 	{
-		m_level->getPlayer()->move(-1, 0);
+		m_level->getPlayer()->move(3, dt);
 	}
 }
 
-void Model::playerFire(bool ok)
+Bullet* Model::playerFire(float dt)
 {
-	if(ok)
+	Bullet* b = m_level->getPlayer()->fire(dt);
+	if(b != nullptr)
 	{
-		m_level->add(m_level->getPlayer()->fire());
+	    m_level->add(b);
+	    return b;
 	}
+
+    return nullptr;
 }

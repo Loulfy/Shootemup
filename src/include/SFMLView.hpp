@@ -24,6 +24,7 @@ class SFMLView : public View
 	private:
 
 		sf::RenderWindow* m_window;
+		sf::Clock m_clock;
 		AssetManager m_assets;
 };
 
