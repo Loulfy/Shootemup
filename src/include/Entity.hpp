@@ -11,9 +11,10 @@ class Entity
 	public:
 
 		Entity();
-		Entity(int x, int y);
+		Entity(float x, float y, int w, int h);
 		virtual ~Entity();
 		void update(float dt);
+		bool collide(Bullet* b);
 		int getX() const;
 		int getY() const;
 		virtual void move(int dir, float dt);
@@ -23,6 +24,9 @@ class Entity
 
 		float m_x;
 		float m_y;
+
+		int m_width;
+		int m_height;
 
         float m_speed;
 		float m_firerate;

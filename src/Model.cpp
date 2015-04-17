@@ -4,9 +4,14 @@ Model::Model()
 {
 	m_level = new Level();
 
-	m_level->add(new Ship(500, 500));
-	m_level->add(new Entity(100, 100));
-	m_level->add(new Entity(100, 200));
+	//Player
+	m_level->add(new Ship(500, 500, 64, 64));
+
+	//On rajoute quelque entités ennemis dans le level.
+	m_level->add(new Entity(100, 100, 64, 64));
+	m_level->add(new Entity(200, 200, 64, 64));
+	m_level->add(new Entity(300, 300, 64, 64));
+	m_level->add(new Entity(400, 400, 64, 64));
 }
 
 Model::~Model()
@@ -15,11 +20,6 @@ Model::~Model()
 	{
 		delete m_level;
 	}
-}
-
-void Model::run()
-{
-	
 }
 
 void Model::update(float dt)
@@ -32,6 +32,8 @@ Level* Model::getLevel() const
 {
 	return m_level;
 }
+
+//EVENEMENTS player
 
 void Model::playerUp(bool ok, float dt)
 {

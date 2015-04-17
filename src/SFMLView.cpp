@@ -92,11 +92,29 @@ void SFMLView::update()
 	{
 		SFMLFrame* frame = dynamic_cast<SFMLFrame*>(f.second);
 		frame->SetPosition(f.first->getX(), f.first->getY());
+
+		for(auto b : m_bullet_frames)
+		{
+
+			if(f.first->collide(b.first))
+			{
+				m_bullet_frames.erase(b.first);
+	       		m_model->getLevel()->remove(b.first);
+	     	    delete b.first;
+	      	    delete b.second;
+
+				m_entity_frames.erase(f.first);
+	       		m_model->getLevel()->remove(f.first);
+	     	    delete f.first;
+	      	    delete f.second;
+			}
+		}
 	}
 
 	//SYNCHRONIZES BULLET
 	for(auto f : m_bullet_frames)
 	{
+		//OUT of the Screen
 	    if(f.first->getY() < 0)
 	    {
 	        m_bullet_frames.erase(f.first);

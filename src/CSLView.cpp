@@ -9,6 +9,7 @@ CSLView::CSLView()
 
 CSLView::~CSLView()
 {
+	//Supprime toute les objets frame.
 	for(auto f : m_entity_frames)
 	{
 		delete f.second;
@@ -25,12 +26,15 @@ void CSLView::setModel(Model* m)
 	View::setModel(m);
 
 	Level* level = m->getLevel();
-
+	
+	//Initialisation
 	for(int i = 0; i < level->countEntity(); ++i)
 	{
 		Entity* e = level->getEntity(i);
 		this->add(e);
 	}
+
+	this->draw();
 }
 
 void CSLView::add(Entity* entity)
@@ -54,41 +58,44 @@ void CSLView::add(Bullet* bullet)
 void CSLView::update()
 {
     //CLOCK
-    float dt = ((float)m_clock)/CLOCKS_PER_SEC;
-    m_clock = clock();
+	//Pour la vue console l'horloge est fixe.
+	float dt = 0.1;
     
     //UPDATE MODEL with delta time !
     m_model->update(dt);
-    
-	//KEYBOARD
-	/*
-	const sf::Input& Input = m_window->GetInput();
-
-	m_model->playerUp(Input.IsKeyDown(sf::Key::Up), dt);
-	m_model->playerDown(Input.IsKeyDown(sf::Key::Down), dt);
-	m_model->playerRight(Input.IsKeyDown(sf::Key::Right), dt);
-	m_model->playerLeft(Input.IsKeyDown(sf::Key::Left), dt);
-
-	if(Input.IsKeyDown(sf::Key::Space))
-	{
-		Bullet* b = m_model->playerFire(dt);
-		if(b != nullptr)
-		    this->add(b);
-	}
-	*/
 
 	//SYNCHRONIZES ENTITY
 	for(auto f : m_entity_frames)
 	{
 		CSLFrame* frame = dynamic_cast<CSLFrame*>(f.second);
 		frame->SetPosition(f.first->getX(), f.first->getY());
+
+		for(auto b : m_bullet_frames)
+		{
+			//Test collision des missiles avec les entités ennemies.
+			if(f.first->collide(b.first))
+			{
+				//Si oui on supprime l'ennemie et le missile.
+				m_bullet_frames.erase(b.first);
+	       		m_model->getLevel()->remove(b.first);
+	     	    delete b.first;
+	      	    delete b.second;
+
+				m_entity_frames.erase(f.first);
+	       		m_model->getLevel()->remove(f.first);
+	     	    delete f.first;
+	      	    delete f.second;
+			}
+		}
 	}
 
 	//SYNCHRONIZES BULLET
 	for(auto f : m_bullet_frames)
 	{
+		//Test si les missiles sortent de l'écran
 	    if(f.first->getY() < 0)
 	    {
+			//Si oui on supprime le missile.
 	        m_bullet_frames.erase(f.first);
 	        m_model->getLevel()->remove(f.first);
 	        delete f.first;
@@ -96,6 +103,7 @@ void CSLView::update()
 	    }
 	    else
 	    {
+			//Sinon on met à jours.
 		    CSLFrame* frame = dynamic_cast<CSLFrame*>(f.second);
 		    frame->SetPosition(f.first->getX(), f.first->getY());
 		}
@@ -104,13 +112,13 @@ void CSLView::update()
 
 bool CSLView::run()
 {
-    float dt = ((float)m_clock)/CLOCKS_PER_SEC;
+	float dt = 0.1;
 
     int cmd;
     cin >> cmd;
     switch(cmd)
     {
-        case 0:
+        case 1:
             {
                 Bullet* b = m_model->playerFire(dt);
 		        if(b != nullptr)
@@ -123,14 +131,20 @@ bool CSLView::run()
         case 2:
             {
                 m_model->getLevel()->getPlayer()->move(2, dt);
-                break;
             }
+			break;
             
        case 3:
             {
                 m_model->getLevel()->getPlayer()->move(3, dt);
-                break;
             }
+			break;
+
+		case 6:
+            {
+                return false;
+            }
+			break;
             
         default:
             break;
@@ -142,13 +156,16 @@ void CSLView::draw()
 {
 	if(system("clear") == 1)
 	{
-	    cout << "Echec Clear !" << endl;
+	    cout << "Echec Clear : remplacer 'clear' par 'cls' !" << endl;
 	}
-	cout << m_clock << endl;
 	
-	cout << "0. Tirez" << endl;
+	cout << "---- Commande ----" << endl;
+	cout << "0. Rafraichir" << endl;
+	cout << "1. Tirer" << endl;
 	cout << "2. Aller à droite" << endl;
 	cout << "3. Aller à gauche" << endl;
+	cout << "6. Quitter" << endl;
+	cout << "------------------" << endl;
 	
 
 	for(auto frame : m_entity_frames)

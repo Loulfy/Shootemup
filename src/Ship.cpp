@@ -5,7 +5,7 @@ Ship::Ship() : Entity()
 
 }
 
-Ship::Ship(int x, int y) : Entity(x, y)
+Ship::Ship(float x, float y, int w, int h) : Entity(x, y, w, h)
 {
 
 }

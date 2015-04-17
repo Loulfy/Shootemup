@@ -27,6 +27,20 @@ void Level::update(float dt)
     {
         b->update(dt);
     }
+
+	/*
+	for(auto e : m_entities)
+	{
+		for(auto b : m_bullets)
+		{
+			if(e->collide(b))
+			{
+				cout << "hit" << endl;
+			}
+		}
+	}
+	*/
+
 }
 
 void Level::add(Entity* e)
@@ -43,6 +57,12 @@ void Level::remove(Bullet* b)
 {
     auto it = find(m_bullets.begin(), m_bullets.end(), b);
     m_bullets.erase(it);
+}
+
+void Level::remove(Entity* e)
+{
+    auto it = find(m_entities.begin(), m_entities.end(), e);
+    m_entities.erase(it);
 }
 
 void Level::add(Ship* player)

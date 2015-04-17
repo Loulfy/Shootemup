@@ -18,6 +18,7 @@ class Level
 		void add(Entity* e);
 		void add(Bullet* b);
 		void remove(Bullet* b);
+		void remove(Entity* e);
 		void add(Ship* player);
 		int countEntity() const;
 		int countBullet() const;

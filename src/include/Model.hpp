@@ -11,7 +11,6 @@ class Model
 		
 		Model();
 		~Model();
-		void run();
 		void update(float dt);
 		Level* getLevel() const;
 		void playerUp(bool ok, float dt);

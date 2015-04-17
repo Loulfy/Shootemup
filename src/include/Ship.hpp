@@ -10,7 +10,7 @@ class Ship : public Entity
 	public:
 
 		Ship();
-		Ship(int x, int y);
+		Ship(float x, float y, int w, int h);
 		~Ship() override;
 		void move(int dir, float dt) override; 
 

@@ -12,8 +12,8 @@ using namespace std;
 int main()
 {
 	Model* m = new Model();
-	//View* v = new CSLView();
-	View* v = new SFMLView();
+	View* v = new CSLView();
+	//View* v = new SFMLView();
 
 	v->setModel(m);
 
